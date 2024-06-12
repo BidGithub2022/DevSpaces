@@ -14,7 +14,7 @@ components:
           path: /home/user/.venv
       env:
         - name: PIPCONFIGFILE 
-          value: $(PROJECT_SOURCE)/.mypipconfig 
+          value: /projects/python-hello-world/.mypipconfig 
       memoryLimit: 2Gi
       memoryRequest: 1Gi
       cpuLimit: '2'
