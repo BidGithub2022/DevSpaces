@@ -21,7 +21,7 @@ components:
     volume:
       size: 1G        
 commands:
-  - id: set env
+  - id: setenv
     exec:
       component: python
       commandLine: export PIP_CONFIG_FILE=${PROJECT_SOURCE}
