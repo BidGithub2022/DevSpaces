@@ -25,6 +25,8 @@ commands:
     exec:
       component: python
       commandLine: export PIP_CONFIG_FILE=${PROJECT_SOURCE}
+      group:
+        kind: run
   - id: run
     exec:
       label: Run the application
