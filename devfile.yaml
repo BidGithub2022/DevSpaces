@@ -12,6 +12,9 @@ components:
       volumeMounts:
         - name: venv
           path: /home/user/.venv
+      env:
+        - name: PIPCONFIGFILE 
+          value: ${PROJECT_SOURCE}/.mypipconfig 
       memoryLimit: 2Gi
       memoryRequest: 1Gi
       cpuLimit: '2'
@@ -21,13 +24,6 @@ components:
     volume:
       size: 1G        
 commands:
-  - id: setenv
-    exec:
-      component: python
-      workingDir: ${PROJECTS_ROOT}/python-hello-world
-      commandLine: export PIP_CONFIG_FILE=${PROJECT_SOURCE}
-      group:
-        kind: run
   - id: run
     exec:
       label: Run the application
