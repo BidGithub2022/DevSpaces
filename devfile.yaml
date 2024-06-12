@@ -19,10 +19,12 @@ components:
       mountSources: true
   - name: venv
     volume:
-      size: 1G
-    name: PIP_CONFIG_FILE
-      value: ${PROJECT_SOURCE}    
+      size: 1G        
 commands:
+  - id: set env
+    exec:
+      component: python
+      commandLine: export PIP_CONFIG_FILE=${PROJECT_SOURCE}
   - id: run
     exec:
       label: Run the application
