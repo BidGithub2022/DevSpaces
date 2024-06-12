@@ -17,12 +17,11 @@ components:
       cpuLimit: '2'
       cpuRequest: '1'
       mountSources: true
-      env:
-        - name: PIP_CONFIG_FILE
-          value: ${PROJECT_SOURCE}
   - name: venv
     volume:
       size: 1G
+    name: PIP_CONFIG_FILE
+      value: ${PROJECT_SOURCE}    
 commands:
   - id: run
     exec:
