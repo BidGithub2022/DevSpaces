@@ -40,27 +40,6 @@ components:
         - name: redis
           targetPort: 6379
 
-  - name: postgres
-    container:
-      image: registry.redhat.io/rhel8/postgresql-12
-      env:
-        - name: POSTGRES_DB
-          value: mydb
-        - name: POSTGRES_USER
-          value: myuser
-        - name: POSTGRES_PASSWORD
-          value: mypassword
-      volumeMounts:
-        - name: postgres-volume
-          path: /var/lib/postgresql/data
-      endpoints:
-        - name: postgres
-          targetPort: 5432
-
-  - name: postgres-volume
-    volume:
-      size: 1Gi
-
 commands:
   - id: run-services
     exec:
