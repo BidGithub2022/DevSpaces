@@ -74,7 +74,9 @@ commands:
           - redis
           - postgres
           - postgres-volume
+      component: zookeeper  # Add the component property here (you can choose any of the components listed above)
       commandLine: docker-compose up 
     group:
       kind: start
       isDefault: true
+
