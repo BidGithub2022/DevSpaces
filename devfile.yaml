@@ -43,7 +43,6 @@ components:
   - name: postgres
     container:
       image: registry.redhat.io/rhel8/postgresql-12
-      restart: always
       env:
         - name: POSTGRES_DB
           value: mydb
