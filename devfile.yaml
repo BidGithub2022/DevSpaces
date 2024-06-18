@@ -47,7 +47,7 @@ components:
 
   - name: redis
     container:
-      image: registry.access.redhat.com/ubi8/redis-6:1-42
+      image: registry.connect.redhat.com/redislabs/redis-enterprise
       endpoints:
         - name: redis
           targetPort: 6379
