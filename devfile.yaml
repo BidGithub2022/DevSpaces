@@ -18,6 +18,8 @@ components:
   - name: kafka
     container:
       image: confluentinc/cp-kafka:latest
+      depends_on:
+        - zookeeper
       env:
         - name: KAFKA_BROKER_ID
           value: "1"
@@ -36,6 +38,9 @@ components:
   - name: control-center
     container:
       image: confluentinc/cp-enterprise-control-center:latest
+      depends_on:
+        - zookeeper
+        - kafka
       env:
         - name: CONTROL_CENTER_BOOTSTRAP_SERVERS
           value: "kafka:9092"
