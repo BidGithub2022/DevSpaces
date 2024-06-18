@@ -63,7 +63,7 @@ components:
         - name: POSTGRES_PASSWORD
           value: mypassword
       volumeMounts:
-        - name: pgdata
+        - name: postgres-volume
           path: /var/lib/postgresql/data
       endpoints:
         - name: postgres
