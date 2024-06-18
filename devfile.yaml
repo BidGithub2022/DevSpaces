@@ -65,11 +65,12 @@ components:
 commands:
   - id: run-services
     exec:
-      component: zookeeper  # Choose one of the components for the main execution context
-      commandLine: docker-compose up  
+      component: zookeeper  # Choose one component as the main execution context
+      commandLine: docker-compose up 
       group:
         kind: run
-    group:
+      # Remove the extra "group" property here
+    group:  # This "group" property is for the command itself, not the execution
       kind: start
       isDefault: true
 
