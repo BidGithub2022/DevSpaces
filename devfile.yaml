@@ -17,9 +17,9 @@ components:
         - name: POSTGRESQL_USER
           value: "postgres1"
         - name: POSTGRESQL_PASSWORD
-          value: "password"
+          value: "redhat"
         - name: POSTGRESQL_DATABASE
-          value: "postgres"
+          value: "postgres1"
       volumeMounts:
         - name: postgres-data
           path: /var/lib/postgresql/data
