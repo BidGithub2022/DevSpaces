@@ -1,34 +1,80 @@
-schemaVersion: 2.2.2
+schemaVersion: 2.2.0
 metadata:
-  name: python-hello-world
-projects:
-  - name: python-hello-world
-    zip:
-      location: http://devfile-registry.openshift-operators.svc:8080/resources/v2/python-hello-world.zip
+  name: my-data-platform-devfile
+
 components:
-  - name: python
+  - name: zookeeper
     container:
-      image: registry.redhat.io/devspaces/udi-rhel8@sha256:042d06a9f481cf1d65a81632a9c069c318f80537e01db7d864dfecfb0bc5714c
-      volumeMounts:
-        - name: venv
-          path: /home/user/.venv
+      image: confluentinc/cp-zookeeper:latest
       env:
-        - name: PIPCONFIGFILE 
-          value: /projects/python-hello-world/.mypipconfig 
-      memoryLimit: 2Gi
-      memoryRequest: 1Gi
-      cpuLimit: '2'
-      cpuRequest: '1'
-      mountSources: true
-  - name: venv
+        - ZOOKEEPER_CLIENT_PORT=2181
+        - ZOOKEEPER_TICK_TIME=2000
+      endpoints:
+        - name: zookeeper
+          targetPort: 2181
+  
+  - name: kafka
+    container:
+      image: confluentinc/cp-kafka:latest
+      env:
+        - KAFKA_BROKER_ID=1
+        - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+        - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+        - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9092
+        - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      endpoints:
+        - name: kafka
+          targetPort: 9092
+
+  - name: control-center
+    container:
+      image: confluentinc/cp-enterprise-control-center:latest
+      env:
+        - CONTROL_CENTER_BOOTSTRAP_SERVERS=kafka:9092
+        - CONTROL_CENTER_ZOOKEEPER_CONNECT=zookeeper:2181
+      endpoints:
+        - name: control-center
+          targetPort: 9021
+
+  - name: redis
+    container:
+      image: redis:latest
+      endpoints:
+        - name: redis
+          targetPort: 6379
+
+  - name: postgres
+    container:
+      image: postgres:latest
+      env:
+        - POSTGRES_DB=mydb
+        - POSTGRES_USER=myuser
+        - POSTGRES_PASSWORD=mypassword
+      volumeMounts:
+        - name: pgdata
+          path: /var/lib/postgresql/data
+      endpoints:
+        - name: postgres
+          targetPort: 5432
+
+  - name: postgres-volume
     volume:
-      size: 1G        
+      name: pgdata
+      size: 1Gi
+
 commands:
-  - id: run
+  - id: run-services
     exec:
-      label: Run the application
-      component: python
-      workingDir: ${PROJECTS_ROOT}/python-hello-world
-      commandLine: python -m venv .venv && . .venv/bin/activate && python hello-world.py
       group:
         kind: run
+        components:
+          - zookeeper
+          - kafka
+          - control-center
+          - redis
+          - postgres
+          - postgres-volume
+      commandLine: docker-compose up 
+    group:
+      kind: start
+      isDefault: true
