@@ -35,21 +35,6 @@ components:
         - name: kafka
           targetPort: 9092
 
-  - name: control-center
-    container:
-      image: confluentinc/cp-enterprise-control-center:latest
-      depends_on:
-        - zookeeper
-        - kafka
-      env:
-        - name: CONTROL_CENTER_BOOTSTRAP_SERVERS
-          value: "kafka:9092"
-        - name: CONTROL_CENTER_ZOOKEEPER_CONNECT
-          value: "zookeeper:2181"
-      endpoints:
-        - name: control-center
-          targetPort: 9021
-
   - name: redis
     container:
       image: registry.connect.redhat.com/redislabs/redis-enterprise
