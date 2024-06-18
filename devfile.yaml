@@ -15,7 +15,7 @@ components:
       image: registry.redhat.io/rhel8/postgresql-12
       env:
         - name: POSTGRESQL_USER
-          value: "postgres"
+          value: "postgres1"
         - name: POSTGRESQL_PASSWORD
           value: "password"
         - name: POSTGRESQL_DATABASE
