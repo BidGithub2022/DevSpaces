@@ -65,17 +65,10 @@ components:
 commands:
   - id: run-services
     exec:
+      component: zookeeper  # Choose one of the components for the main execution context
+      commandLine: docker-compose up  
       group:
         kind: run
-        components:
-          - zookeeper
-          - kafka
-          - control-center
-          - redis
-          - postgres
-          - postgres-volume
-      component: zookeeper  # Add the component property here (you can choose any of the components listed above)
-      commandLine: docker-compose up 
     group:
       kind: start
       isDefault: true
