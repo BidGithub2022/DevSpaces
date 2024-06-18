@@ -22,9 +22,6 @@ components:
       endpoints:
         - name: postgres
           targetPort: 5432  # Default PostgreSQL port
-      command: ["/bin/sh"]
-      args: ["-c", "sudo yum -y install postgresql-server && /usr/bin/postgresql-setup --initdb && pg_ctl -D /var/lib/pgsql/data start"]
-
 
   - name: postgres-data
     volume:
