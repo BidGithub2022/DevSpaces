@@ -39,8 +39,8 @@ components:
       endpoints:
         - name: redis
           targetPort: 6380
-      command: ['chmod', '+x', '/opt/start.sh']
       command: ['chmod', '+x', '/opt/redislabs/sbin/supervisord_prestart_script.sh']
+      command: ['chmod', '+x', '/opt/start.sh']
 
 commands:
   - id: run-services
