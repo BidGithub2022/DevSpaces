@@ -30,10 +30,7 @@ components:
 commands:
   - id: run-services
     exec:
-      component: web  # Choose one component as the main execution context (web or db)
+      component: web  
       commandLine: docker-compose up 
       group:
         kind: run
-    group:
-      kind: start
-      isDefault: true
