@@ -14,8 +14,12 @@ components:
     container:
       image: registry.redhat.io/rhel8/postgresql-12
       env:
-        - name: POSTGRES_PASSWORD
-          value: mysecretpassword
+        - name: POSTGRESQL_USER
+          value: "postgres"
+        - name: POSTGRESQL_PASSWORD
+          value: "password"
+        - name: POSTGRESQL_DATABASE
+          value: "postgres"
       volumeMounts:
         - name: postgres-data
           path: /var/lib/postgresql/data
