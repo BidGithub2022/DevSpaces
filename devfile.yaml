@@ -38,7 +38,7 @@ components:
       image: registry.connect.redhat.com/redislabs/redis-enterprise
       endpoints:
         - name: redis
-          targetPort: 6379
+          targetPort: 6380
 
 commands:
   - id: run-services
