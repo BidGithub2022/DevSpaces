@@ -1,0 +1,40 @@
+schemaVersion: 2.2.0
+metadata:
+  name: my-web-app-devfile
+
+components:
+  - name: web
+    container:
+      image: registry.redhat.io/devspaces/udi-rhel8
+      endpoints:
+        - name: web
+          targetPort: 80
+
+  - name: db
+    container:
+      image: registry.redhat.io/rhel8/postgresql-12
+      env:
+        - name: POSTGRESQL_USER
+          value: "postgres1"
+        - name: POSTGRESQL_PASSWORD
+          value: "redhat"
+        - name: POSTGRESQL_DATABASE
+          value: "postgres1"
+      volumeMounts:
+        - name: postgres-data
+          path: /var/lib/postgresql/data
+      endpoints:
+        - name: postgres
+          targetPort: 5432  # Default PostgreSQL port
+
+  - name: postgres-data
+    volume:
+      size: 1Gi
+
+commands:
+  - id: run-services
+    exec:
+      component: web  
+      commandLine: docker-compose up 
+      group:
+        kind: run
