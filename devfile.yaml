@@ -1,11 +1,9 @@
 schemaVersion: 2.2.0
+metadata:
+  name: empty-pxvg
+  namespace: mailtobidyut-dev
 components:
-  - name: ansible-dev-tools
-    container: 
-      image: registry.redhat.io/ansible-automation-platform-25/ansible-dev-tools-rhel8@sha256:88d105c1f6f2b852847f9ddce1f9a933801b69e9af702b1e35e3bd5ed80cc148
-      memoryRequest: 256M
-      memoryLimit: 6Gi
-      cpuRequest: 250m
-      cpuLimit: 2000m
-
-
+  - container:
+      image: quay.io/devfile/universal-developer-image:ubi8-d071837
+      sourceMapping: /projects
+    name: universal-developer-image
